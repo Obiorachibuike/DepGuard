@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.next/
+coverage/
+api-docs/
+*.tsbuildinfo
+.env*
+!.env.example
+.depguard-cache/
+*.tgz

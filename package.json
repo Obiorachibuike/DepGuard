@@ -1,7 +1,7 @@
 {
   "name": "@depguard/core",
   "version": "0.1.0",
-  "description": "Dependency security intelligence for JavaScript and TypeScript projects",
+  "description": "Read-only dependency security analysis for JavaScript and TypeScript: CLI and typed API",
   "type": "module",
   "license": "MIT",
   "engines": {
@@ -33,18 +33,21 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "node scripts/clean.mjs && tsup",
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:integration": "DEPGUARD_INTEGRATION=1 vitest run tests/integration.test.ts",
     "typecheck": "tsc --noEmit && npm run typecheck --workspace website",
-    "lint": "eslint src tests website --max-warnings 0",
+    "lint": "eslint src tests scripts website --max-warnings 0",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "docs:api": "typedoc src/index.ts --out api-docs",
     "website:dev": "npm run dev --workspace website",
     "website:build": "npm run build --workspace website",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "pretest": "npm run build",
+    "test:package": "npm run build && node scripts/verify-package.mjs",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run test:package && npm run website:build"
   },
   "workspaces": [
     "website"
@@ -62,6 +65,7 @@
     "@types/semver": "^7.7.0",
     "@types/yarnpkg__lockfile": "^1.1.9",
     "eslint": "^9.0.0",
+    "globals": "^16.5.0",
     "prettier": "^3.5.0",
     "tsup": "^8.4.0",
     "typedoc": "^0.28.0",
@@ -71,14 +75,27 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Obiorachibuike/DepGuard.git"
+    "url": "git+https://github.com/Obiorachibuike/DepGuard.git"
   },
   "homepage": "https://github.com/Obiorachibuike/DepGuard#readme",
   "bugs": "https://github.com/Obiorachibuike/DepGuard/issues",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "overrides": {
     "esbuild": "^0.28.2"
-  }
+  },
+  "keywords": [
+    "depguard",
+    "dependency-security",
+    "vulnerability-scanner",
+    "osv",
+    "npm",
+    "pnpm",
+    "yarn",
+    "sarif",
+    "typescript",
+    "cli"
+  ]
 }

@@ -1,0 +1,11 @@
+lockfileVersion: '9.0'
+importers:
+  .:
+    dependencies:
+      is-number:
+        specifier: 7.0.0
+        version: 7.0.0
+packages:
+  is-number@7.0.0: {}
+snapshots:
+  is-number@7.0.0: {}

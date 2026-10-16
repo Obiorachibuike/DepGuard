@@ -8,3 +8,4 @@ api-docs/
 !.env.example
 .depguard-cache/
 *.tgz
+release-artifacts/

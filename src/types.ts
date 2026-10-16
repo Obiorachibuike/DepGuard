@@ -19,7 +19,12 @@ export interface Project {
 }
 export interface AdvisoryRange {
   type: 'SEMVER' | 'ECOSYSTEM' | 'GIT';
-  events: { introduced?: string; fixed?: string; last_affected?: string; limit?: string }[];
+  events: {
+    introduced?: string;
+    fixed?: string;
+    last_affected?: string;
+    limit?: string;
+  }[];
 }
 export interface Advisory {
   id: string;

@@ -27,3 +27,36 @@ Verified before opening the pull request:
 - `npx tsc --noEmit`: succeeded for the root package and tests.
 
 This is an in-progress checkpoint, not the completed master build. The website is scaffolded but still lacks its stylesheet and documentation routes. Website production build, workspace-wide type checking, lint, formatting, clean packed-package consumer verification, examples, CI workflows, and final release/security/contribution/license documentation remain to be completed. The package has not been published and the website has not been deployed. Build artifacts and installed dependencies are ignored rather than committed.
+
+## npm readiness checkpoint — 2026-10-16
+
+Re-inspected the existing root package, public exports, CLI, lockfile, build/test configuration, website workspace and README before the publishing pass. Preserved the CLI/library architecture and scanner behavior, with targeted correctness/security regressions fixed rather than recreating the project.
+
+Completed:
+
+- Root metadata, keywords, canonical repository URL, explicit public npm registry/access, allowlisted release files and build-before-test behavior.
+- Single build cleanup before parallel tsup entries; clean tarball consumers for ESM, CommonJS, both declaration formats and the npm executable link.
+- Release/tag/prerelease and archive-integrity checks; immutable-version handling and fail-closed registry lookups.
+- Token-free GitHub Release workflow with pinned actions, isolated OIDC permission in a protected `npm` environment, verified artifact handoff, provenance and Node 24/npm 11.
+- CI, runtime matrix, dependency-update configuration, README, MIT license, security/contribution/changelog documentation and exact first-publication/bootstrap/OIDC instructions.
+- Website stylesheet, light/dark themes, documentation routes/search, features/changelog pages, static Markdown rendering with copyable code, and standalone-server start script. Documentation reuses repository sources at build time.
+- Example lockfiles and additional tests for source regressions and publishing safety.
+
+Executed validation:
+
+- `npm ci`: passed; installed from the existing root lockfile.
+- `npm run check` under Node 24: formatting, lint (including release scripts), root/website type checking, **84 deterministic tests passed**, one optional live OSV test skipped, packed-consumer validation and website production build all passed.
+- `npm run docs:api`: TypeDoc generated successfully.
+- `npm audit --audit-level=high`: npm reported **0 vulnerabilities** at check time; not a claim of overall safety.
+- `npm pack --dry-run`: passed, **13 intended files**, approximately **125 kB** compressed; no website, workflows, tests or credentials shipped.
+- Clean tarball runtime/declaration/bin checks additionally passed on **Node 20.19.0** and **Node 24** (ordinary development ran on Node 22.22.3).
+- HTTP smoke checks: homepage, docs routes, features and changelog returned 200; an unknown documentation slug returned 404. Standalone preview binds to 0.0.0.0.
+
+Remaining manual/external checks:
+
+- Owner must control the configured npm scope or choose one they own. Registry nonexistence does not prove permission.
+- Configure GitHub `npm` environment approvals/tag policy and npm trust for `Obiorachibuike/DepGuard`, `publish.yml`, environment `npm`, allowing direct publishing. No npm account or trusted-publisher configuration has been performed here.
+- First-ever package publication may require a one-time local bootstrap before npm package-level trust settings are available. A byte-identical existing-version skip does not validate OIDC; use the next new version to validate it within npm's stated window.
+- Actual npm publication/provenance cannot be validated without the owner's account/trust setup; **no publication, GitHub Release creation, merge or deployment has been performed**.
+- Optional live OSV integration was not run; outbound OSV access is restricted in this sandbox. Existing documented scanner limitations (workspace/protocol resolution, advisory pagination/range formats, release-age heuristics, no reachability/malware detection) still apply.
+- Browser-based accessibility/responsive testing and maintainer security review remain recommended; HTTP smoke tests and successful builds do not substitute for them.

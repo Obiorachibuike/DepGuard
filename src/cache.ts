@@ -4,7 +4,11 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { z } from 'zod';
 
-const envelope = z.object({ version: z.literal(1), savedAt: z.number(), value: z.unknown() });
+const envelope = z.object({
+  version: z.literal(1),
+  savedAt: z.number(),
+  value: z.unknown(),
+});
 /** A bounded, atomic, content-keyed cache. Expired and corrupt entries are never trusted. */
 export class FileCache {
   constructor(
@@ -12,7 +16,12 @@ export class FileCache {
     readonly ttlMs = 86_400_000,
     private readonly now = () => Date.now(),
   ) {}
-  private file(key: string): string { return join(this.directory, `${createHash('sha256').update(key).digest('hex')}.json`); }
+  private file(key: string): string {
+    return join(
+      this.directory,
+      `${createHash('sha256').update(key).digest('hex')}.json`,
+    );
+  }
   async get(key: string): Promise<unknown | undefined> {
     try {
       const file = this.file(key);
@@ -21,7 +30,9 @@ export class FileCache {
       const age = this.now() - entry.savedAt;
       if (age < 0 || age >= this.ttlMs) return undefined;
       return entry.value;
-    } catch { return undefined; }
+    } catch {
+      return undefined;
+    }
   }
   async set(key: string, value: unknown): Promise<void> {
     const body = JSON.stringify({ version: 1, savedAt: this.now(), value });
@@ -33,6 +44,8 @@ export class FileCache {
       await rename(tmp, this.file(key));
     } catch {
       // A read-only cache must not prevent analysis. Cache writes contain no project files.
-    } finally { await rm(tmp, { force: true }).catch(() => undefined); }
+    } finally {
+      await rm(tmp, { force: true }).catch(() => undefined);
+    }
   }
 }

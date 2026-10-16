@@ -1,0 +1,70 @@
+name: Publish npm release
+on:
+  release:
+    types: [published]
+permissions:
+  contents: read
+concurrency:
+  group: npm-release-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.repository == 'Obiorachibuike/DepGuard'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require a reviewed commit reachable from main
+        run: git merge-base --is-ancestor HEAD origin/main
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm install --global npm@11
+      - name: Validate release tag and version
+        run: node scripts/check-release.mjs
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_PRERELEASE: ${{ github.event.release.prerelease }}
+      - run: npm ci
+      - run: npm run check
+      - run: npm audit --audit-level=high
+      - name: Pack the verified release once
+        run: |
+          mkdir release-artifacts
+          npm pack --ignore-scripts --json --pack-destination release-artifacts > release-artifacts/pack.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: npm-package
+          path: release-artifacts/
+          if-no-files-found: error
+          retention-days: 7
+  publish:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm install --global npm@11
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: npm-package
+          path: release-artifacts
+      # No npm ci, package lifecycle hooks, NODE_AUTH_TOKEN or stored credentials in this job.
+      - name: Publish the verified tarball using npm OIDC
+        run: node scripts/publish-release.mjs release-artifacts

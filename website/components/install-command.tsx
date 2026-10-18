@@ -37,7 +37,8 @@ export function InstallCommand() {
         <CopyButton text={commands[manager]} />
       </div>
       <Link className="publication-note" href="/docs/installation">
-        Publication pending. Build from source today. <ArrowUpRight size={12} />
+        v0.1.0 is available on npm. Installation guide.{' '}
+        <ArrowUpRight size={12} />
       </Link>
     </div>
   );

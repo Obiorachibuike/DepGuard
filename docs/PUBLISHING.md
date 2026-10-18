@@ -4,7 +4,15 @@
 
 This repository produces **both** the `depguard` CLI and a reusable library from the **root** package, `@obiorachibuike/depguard@0.1.0`. `website/` is a private workspace and must never be published. `files` is an allowlist: built ESM/CommonJS/CLI code and declarations, package metadata, README, LICENSE, SECURITY and CHANGELOG. Source maps include source text intentionally; tests, website, examples, workflows and local secrets are not shipped.
 
-Nothing in this guide means a publication has occurred. No npm credentials are stored in the repository or GitHub Actions workflows.
+**Publication confirmed:** `@obiorachibuike/depguard@0.1.0` was published on 2026-10-18 using a maintainer-approved CLI session and browser-based 2FA. The public registry's `latest` tag is `0.1.0`. Registry integrity matched the approved archive; fresh ESM/CommonJS imports and the CLI were verified. The temporary npm session was logged out and its local credentials/cache removed. No npm credentials are stored in the repository or workflows.
+
+The published archive was built from commit `436a6fd6f365039ca9bc07449693322d9c85bb1b`. Its integrity is:
+
+```text
+sha512-FY55E6drCH+MfzaW3ka3VlWK3TKf1e2xB5gf/zibTxup8HRWcpp70Hyuxzy8MCZTbOMdMv0xLJajAch6cbvkvA==
+```
+
+This was the initial CLI bootstrap, **not an OIDC publication**; it has no GitHub provenance attestation. GitHub/npm trusted-publisher setup remains manual. Subsequent repository documentation edits do not change the immutable npm archive; do not attempt to replace 0.1.0 with a newly packed archive. Prepare a new version such as 0.1.1 for the next publication. The initial npm archive's README/changelog retain their pre-publication wording; refreshed wording will ship with the next new version.
 
 The target uses the personal npm scope `obiorachibuike`, supplied by the maintainer. Before publishing, sign in locally and confirm that `npm whoami` returns **`obiorachibuike`**. GitHub identity and a username supplied in chat do not authenticate an npm account. A registry 404 does not reserve a name or prove publication permission.
 
@@ -45,7 +53,9 @@ References (review these if npm's UI changes):
 - [npm provenance](https://docs.npmjs.com/generating-provenance-statements)
 - [GitHub release events](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#release)
 
-## Exact steps for the first version
+## First-version bootstrap reference (completed for 0.1.0)
+
+> These steps document the first-publication process. Version 0.1.0 is already published. Do not repeat its upload or reuse its version; use the subsequent-version process below.
 
 npm's usual trusted-publisher configuration is **package-level**. If the package does not yet exist and npm does not offer a first-publication trust setup in your account, bootstrap it once locally. Do not expect OIDC to create a package whose trust relationship cannot yet be configured.
 
@@ -145,4 +155,4 @@ Update `CHANGELOG.md`, README examples and the CLI/report tool version where rel
 | Runtime files absent         | Run `npm run build`, `npm run test:package`, `npm pack --dry-run`; check the root `files` and `exports`.                                                 |
 | Website check failed         | Fix the private workspace too; release validation intentionally runs the full repository checks.                                                         |
 
-The npm account, scope permissions, GitHub environment protection and trusted-publisher relationship must be configured by the owner; this agent has not configured or authenticated an npm account and has not published the package.
+The owner completed account login, 2FA setup and publication approval privately on npm. The CLI bootstrap of 0.1.0 succeeded and was verified. GitHub environment protection and npm trusted-publisher configuration still require owner setup; no GitHub Release, merge, OIDC publication or website deployment was performed as part of this bootstrap.

@@ -4,7 +4,7 @@
 
 DepGuard is a read-only dependency security toolkit for JavaScript and TypeScript projects: a `depguard` CLI **and** an ESM/CommonJS library with TypeScript declarations. It matches resolved versions against OSV advisories, reports npm registry health signals, and explains remediation without modifying the scanned project.
 
-> **Release status:** `0.1.0` is prepared for a first publication, but has not been published by this project. `@obiorachibuike/depguard` is the configured name; the personal npm scope was selected from the supplied username `obiorachibuike`. Before publishing, verify that `npm whoami` returns `obiorachibuike`; the username alone is not authentication. The unrelated unscoped `depguard` name is already registered. Use the local tarball instructions until publication is confirmed. No finding is not proof of safety.
+> **Release status:** [`@obiorachibuike/depguard@0.1.0`](https://www.npmjs.com/package/@obiorachibuike/depguard) was published on **2026-10-18** and verified by a fresh public-registry installation. The CLI command is `depguard`. This initial release used an explicitly approved CLI bootstrap, not GitHub OIDC provenance. No finding is proof of safety.
 
 ## Install from this repository today
 
@@ -30,7 +30,7 @@ npx depguard scan .
 
 These are explicit installation steps **you** run. The scanner itself never installs a scanned project's dependencies or runs its scripts.
 
-### Once published under the configured name
+### Install the published package
 
 ```bash
 npm install --save-dev @obiorachibuike/depguard

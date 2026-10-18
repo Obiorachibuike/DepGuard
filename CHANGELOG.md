@@ -1,8 +1,10 @@
 # Changelog
 
-Changes follow Semantic Versioning. This file describes implemented source, not proof of publication.
+Changes follow Semantic Versioning. Publication is recorded only after the registry confirms it.
 
-## 0.1.0 — Unreleased
+## 0.1.0 — 2026-10-18
+
+Published as `@obiorachibuike/depguard` through a maintainer-approved CLI bootstrap. Public-registry integrity, clean ESM/CommonJS imports and the CLI executable were verified. GitHub OIDC provenance is not attached to this initial version.
 
 ### Added
 

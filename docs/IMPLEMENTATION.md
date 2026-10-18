@@ -68,3 +68,11 @@ The maintainer supplied the public npm username `obiorachibuike`. Selected `@obi
 Added a regression test for the selected package identity, lockfile consistency, documented archive filename, public examples and unchanged executable/repository. Re-ran `npm ci`, `npm run check` (85 passed, one optional live test skipped), TypeDoc, npm audit (0 known vulnerabilities) and `npm pack --dry-run` (13 intended files). Clean ESM/CommonJS/declaration/CLI consumers succeeded under the selected package name. The expected archive is `obiorachibuike-depguard-0.1.0.tgz`.
 
 The registry returned 404 for the selected package at check time; this is not proof of account ownership or authorization. No npm login, account creation, package publication, GitHub Release or merge was performed. The owner must authenticate locally and verify that `npm whoami` returns `obiorachibuike` before following the first-publication steps in `docs/PUBLISHING.md`.
+
+## First npm publication confirmed — 2026-10-18
+
+The owner requested CLI publication and completed npm's official browser login as `obiorachibuike`. The first attempt was rejected because 2FA was not enabled; no version was created by that attempt. After the owner enabled 2FA, the retry required a second official browser approval. Once approved, npm returned success for `@obiorachibuike/depguard@0.1.0`.
+
+Public-registry propagation was then confirmed: the package name/version, `latest` tag and SHA-512 integrity matched the approved archive built from commit `436a6fd6f365039ca9bc07449693322d9c85bb1b`. A new temporary consumer installed the exact published version with install scripts disabled; ESM import, CommonJS require, CLI version and npm executable-link/help checks all passed. This was a direct CLI bootstrap, not GitHub OIDC publishing, and the published version has no provenance attestation.
+
+The temporary npm session was logged out and its authentication file/cache removed. No credentials, OTPs, tokens or recovery codes were added to the repository or chat. No GitHub Release, PR merge, OIDC trust configuration or website deployment was performed. Updated repository release-status wording after confirmation; the immutable 0.1.0 archive retains the pre-publication documentation and must not be overwritten. Future changed archives require a new version.

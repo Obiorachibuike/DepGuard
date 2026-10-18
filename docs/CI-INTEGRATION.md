@@ -1,6 +1,6 @@
 # CI integration
 
-Install DepGuard only after the actual package name and publication are confirmed. Pin a reviewed version. Until publication, install a tarball built from reviewed source instead. The CLI executable is `depguard` for either installation method.
+The published package is `@obiorachibuike/depguard`; version 0.1.0 was verified on the public npm registry. Pin a reviewed version in CI (for example `npm install --save-dev @obiorachibuike/depguard@0.1.0`). You can also install a tarball built from reviewed source. The CLI executable is `depguard` for either installation method.
 
 ## Threshold scan
 

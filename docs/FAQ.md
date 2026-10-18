@@ -22,7 +22,7 @@ Incomplete coverage takes precedence over the finding threshold. Fix service acc
 
 ## Is the npm package live?
 
-This repository prepares version 0.1.0 for publication but does not claim it has been published. Verify the actual package name and version on npm before relying on registry installation instructions. The local tarball installation path works independently of publication.
+Yes. `@obiorachibuike/depguard@0.1.0` was published on 2026-10-18 and verified through a fresh public-registry installation. Install it with `npm install --save-dev @obiorachibuike/depguard`, then run `npx depguard scan`. The unrelated unscoped package `depguard` is not this project.
 
 ## Can I use it without a cloud account?
 

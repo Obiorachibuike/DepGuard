@@ -302,7 +302,7 @@ export default function Home() {
             </div>
             <CodeBlock
               language="typescript"
-              code={`import { scan } from '@depguard/core';\n\nconst report = await scan({\n  path: './my-project',\n  config: { severity: 'high' },\n});\n\nfor (const finding of report.findings) {\n  console.log(finding.dependency.name);\n  console.log(finding.remediation);\n}\n\nprocess.exitCode = report.exitCode;`}
+              code={`import { scan } from '@obiorachibuike/depguard';\n\nconst report = await scan({\n  path: './my-project',\n  config: { severity: 'high' },\n});\n\nfor (const finding of report.findings) {\n  console.log(finding.dependency.name);\n  console.log(finding.remediation);\n}\n\nprocess.exitCode = report.exitCode;`}
             />
             <div className="code-bottom">
               <span className="status-dot" /> ESM-first. TypeScript-native.

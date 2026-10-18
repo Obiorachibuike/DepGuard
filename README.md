@@ -4,7 +4,7 @@
 
 DepGuard is a read-only dependency security toolkit for JavaScript and TypeScript projects: a `depguard` CLI **and** an ESM/CommonJS library with TypeScript declarations. It matches resolved versions against OSV advisories, reports npm registry health signals, and explains remediation without modifying the scanned project.
 
-> **Release status:** `0.1.0` is prepared for a first publication, but has not been published by this project. `@depguard/core` is the configured name; the publisher must control the `@depguard` npm scope. The unrelated unscoped `depguard` name is already registered. Use the local tarball instructions until publication is confirmed. No finding is not proof of safety.
+> **Release status:** `0.1.0` is prepared for a first publication, but has not been published by this project. `@obiorachibuike/depguard` is the configured name; the personal npm scope was selected from the supplied username `obiorachibuike`. Before publishing, verify that `npm whoami` returns `obiorachibuike`; the username alone is not authentication. The unrelated unscoped `depguard` name is already registered. Use the local tarball instructions until publication is confirmed. No finding is not proof of safety.
 
 ## Install from this repository today
 
@@ -21,10 +21,10 @@ npm run test:package
 npm pack
 ```
 
-`npm pack` creates `depguard-core-0.1.0.tgz`. Install it in the project you want to analyze:
+`npm pack` creates `obiorachibuike-depguard-0.1.0.tgz`. Install it in the project you want to analyze:
 
 ```bash
-npm install --save-dev /absolute/path/to/DepGuard/depguard-core-0.1.0.tgz
+npm install --save-dev /absolute/path/to/DepGuard/obiorachibuike-depguard-0.1.0.tgz
 npx depguard scan .
 ```
 
@@ -33,11 +33,11 @@ These are explicit installation steps **you** run. The scanner itself never inst
 ### Once published under the configured name
 
 ```bash
-npm install --save-dev @depguard/core
+npm install --save-dev @obiorachibuike/depguard
 npx depguard scan .
 
 # Optional global CLI installation:
-npm install --global @depguard/core
+npm install --global @obiorachibuike/depguard
 depguard --help
 ```
 
@@ -142,7 +142,7 @@ Health IDs: `DG-OUTDATED`, `DG-DEPRECATED`, `DG-INACTIVE`, `DG-METADATA`. Inacti
 ## TypeScript API
 
 ```ts
-import { scan, renderReport, type ScanReport } from '@depguard/core';
+import { scan, renderReport, type ScanReport } from '@obiorachibuike/depguard';
 
 const report: ScanReport = await scan({
   path: './my-project',
@@ -156,7 +156,7 @@ process.exitCode = report.exitCode;
 CommonJS is supported too:
 
 ```js
-const { scan } = require('@depguard/core');
+const { scan } = require('@obiorachibuike/depguard');
 scan({ path: '.' }).then((report) => console.log(report.summary));
 ```
 
@@ -172,7 +172,7 @@ Requests use HTTPS host allowlists, reject redirects, apply deadlines and a 5 Mi
 
 ## Troubleshooting
 
-- **`E404` when installing `@depguard/core`:** this project may not yet be published, or its release name changed. Install the local tarball; verify the exact published name.
+- **`E404` when installing `@obiorachibuike/depguard`:** this project may not yet be published, or its release name changed. Install the local tarball; verify the exact published name.
 - **Ambiguous lockfiles:** pass `--lockfile package-lock.json` (or your intended format).
 - **Exit 2 / rate limits / timeout:** inspect `coverage`, `diagnostics` and project warnings in `--json` output. Retry later, adjust `timeoutMs` up to 60,000, or use unexpired cached responses. No automatic retries are performed.
 - **Offline miss:** first populate the cache with an explicit online scan. This environment may block OSV; that is a service-access limitation, not evidence of safety.

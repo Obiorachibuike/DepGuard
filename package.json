@@ -1,5 +1,5 @@
 {
-  "name": "@depguard/core",
+  "name": "@obiorachibuike/depguard",
   "version": "0.1.0",
   "description": "Read-only dependency security analysis for JavaScript and TypeScript: CLI and typed API",
   "type": "module",

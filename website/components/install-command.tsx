@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { ArrowUpRight, Terminal } from 'lucide-react';
 import { CopyButton } from './code-block';
 const commands = {
-  npm: 'npm install --save-dev @depguard/core',
-  pnpm: 'pnpm add --save-dev @depguard/core',
-  yarn: 'yarn add --dev @depguard/core',
+  npm: 'npm install --save-dev @obiorachibuike/depguard',
+  pnpm: 'pnpm add --save-dev @obiorachibuike/depguard',
+  yarn: 'yarn add --dev @obiorachibuike/depguard',
 };
 export function InstallCommand() {
   const [manager, setManager] = useState<keyof typeof commands>('npm');

@@ -141,7 +141,7 @@ export function Footer() {
             <a href="https://github.com/Obiorachibuike/DepGuard">
               GitHub <ArrowUpRight size={12} />
             </a>
-            <a href="https://www.npmjs.com/package/@depguard/core">
+            <a href="https://www.npmjs.com/package/@obiorachibuike/depguard">
               npm namespace <ArrowUpRight size={12} />
             </a>
             <a href="https://github.com/Obiorachibuike/DepGuard/blob/main/CONTRIBUTING.md">

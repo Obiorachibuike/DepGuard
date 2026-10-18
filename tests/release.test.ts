@@ -117,3 +117,31 @@ it('keeps CLI and SARIF versions consistent with the manifest', async () => {
     JSON.parse(renderReport(report, 'sarif')).runs[0].tool.driver.version,
   ).toBe(manifest.version);
 });
+it('keeps the selected public npm identity consistent without renaming the executable', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const pkg = JSON.parse(await readFile('package.json', 'utf8'));
+  const lock = JSON.parse(await readFile('package-lock.json', 'utf8'));
+  expect(pkg.name).toBe('@obiorachibuike/depguard');
+  expect(lock.name).toBe(pkg.name);
+  expect(lock.packages[''].name).toBe(pkg.name);
+  expect(pkg.bin).toEqual({ depguard: './dist/cli.js' });
+  expect(pkg.repository.url).toBe(
+    'git+https://github.com/Obiorachibuike/DepGuard.git',
+  );
+  const archive = `${pkg.name.slice(1).replace('/', '-')}-${pkg.version}.tgz`;
+  for (const file of ['README.md', 'docs/PUBLISHING.md']) {
+    const content = await readFile(file, 'utf8');
+    expect(content).toContain(pkg.name);
+    expect(content).toContain(archive);
+  }
+  for (const file of [
+    'website/components/install-command.tsx',
+    'website/components/header.tsx',
+    'website/app/page.tsx',
+  ]) {
+    expect(await readFile(file, 'utf8')).toContain(pkg.name);
+  }
+  expect(
+    JSON.parse(await readFile('website/package.json', 'utf8')).private,
+  ).toBe(true);
+});

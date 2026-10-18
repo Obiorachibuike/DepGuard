@@ -2,16 +2,15 @@
 
 ## Current identity and scope ownership
 
-This repository produces **both** the `depguard` CLI and a reusable library from the **root** package, `@depguard/core@0.1.0`. `website/` is a private workspace and must never be published. `files` is an allowlist: built ESM/CommonJS/CLI code and declarations, package metadata, README, LICENSE, SECURITY and CHANGELOG. Source maps include source text intentionally; tests, website, examples, workflows and local secrets are not shipped.
+This repository produces **both** the `depguard` CLI and a reusable library from the **root** package, `@obiorachibuike/depguard@0.1.0`. `website/` is a private workspace and must never be published. `files` is an allowlist: built ESM/CommonJS/CLI code and declarations, package metadata, README, LICENSE, SECURITY and CHANGELOG. Source maps include source text intentionally; tests, website, examples, workflows and local secrets are not shipped.
 
 Nothing in this guide means a publication has occurred. No npm credentials are stored in the repository or GitHub Actions workflows.
 
-The unscoped `depguard` package is already registered by an unrelated publisher. Do not publish to or assume control of it. `@depguard/core` requires ownership/membership and write permission in the **npm** `depguard` scope; GitHub ownership does not grant that permission. A registry 404 does not reserve a name or demonstrate scope ownership.
+The target uses the personal npm scope `obiorachibuike`, supplied by the maintainer. Before publishing, sign in locally and confirm that `npm whoami` returns **`obiorachibuike`**. GitHub identity and a username supplied in chat do not authenticate an npm account. A registry 404 does not reserve a name or prove publication permission.
 
-Before the first release, choose one:
+The unscoped `depguard` package is already registered by an unrelated publisher. Do not publish to or assume control of it. No npm organization named `depguard` is needed for the selected personal scope.
 
-1. Create/control the `depguard` npm organization and use `@depguard/core`; or
-2. Change the root name to `@YOUR_NPM_SCOPE/depguard` (a scope you actually control). Update README/API imports, website install commands/links, publishing docs and the lockfile using `npm install --package-lock-only`.
+If the authenticated npm username is different, stop before publishing and correct the scope consistently in the root manifest, README/API imports, website install commands/links and this guide, then run `npm install --package-lock-only` and all checks again.
 
 Keep `bin.depguard` unchanged. Do not rename the package after publication without a migration plan. The workflow reads the package name dynamically.
 
@@ -73,7 +72,7 @@ npm pack --dry-run
 npm pack
 ```
 
-With the unchanged name/version, this creates `depguard-core-0.1.0.tgz`. Inspect the listed files and do not commit the archive. If the name changed, use the actual filename reported by npm.
+With the unchanged name/version, this creates `obiorachibuike-depguard-0.1.0.tgz`. Inspect the listed files and do not commit the archive. If the name changed, use the actual filename reported by npm.
 
 ### 3. Bootstrap only if required
 
@@ -82,8 +81,8 @@ Perform this **in your own terminal**, not in chat, source code, or GitHub Actio
 ```bash
 npm login
 npm whoami
-npm publish ./depguard-core-0.1.0.tgz --access public --ignore-scripts
-npm view @depguard/core@0.1.0 version dist.integrity
+npm publish ./obiorachibuike-depguard-0.1.0.tgz --access public --ignore-scripts
+npm view @obiorachibuike/depguard@0.1.0 version dist.integrity
 ```
 
 Use your real package name/archive if renamed. Complete browser/2FA prompts privately. Never send tokens or OTPs to an agent or paste them into a workflow. A local bootstrap generally lacks the GitHub OIDC provenance of later CI releases; do not claim otherwise. Only a successful `npm publish` and registry lookup establish that the package was published.
@@ -105,9 +104,9 @@ If `0.1.0` was bootstrapped locally, prepare **`0.1.1`** through a reviewed PR, 
 After the Actions run reports a successful publication:
 
 ```bash
-npm view @depguard/core version dist.integrity dist.attestations
+npm view @obiorachibuike/depguard version dist.integrity dist.attestations
 # In a separate example project:
-npm install --save-dev @depguard/core
+npm install --save-dev @obiorachibuike/depguard
 npx depguard --version
 npx depguard scan --help
 ```

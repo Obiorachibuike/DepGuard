@@ -60,3 +60,11 @@ Remaining manual/external checks:
 - Actual npm publication/provenance cannot be validated without the owner's account/trust setup; **no publication, GitHub Release creation, merge or deployment has been performed**.
 - Optional live OSV integration was not run; outbound OSV access is restricted in this sandbox. Existing documented scanner limitations (workspace/protocol resolution, advisory pagination/range formats, release-age heuristics, no reachability/malware detection) still apply.
 - Browser-based accessibility/responsive testing and maintainer security review remain recommended; HTTP smoke tests and successful builds do not substitute for them.
+
+## Personal npm scope selection — 2026-10-18
+
+The maintainer supplied the public npm username `obiorachibuike`. Selected `@obiorachibuike/depguard@0.1.0` as the root package identity and updated the root lockfile, README, publishing guide, website install commands, npm link and API example. The executable remains `depguard`; GitHub owner/repository and OIDC publisher identity remain `Obiorachibuike/DepGuard`. The website remains private and is not part of the publish payload.
+
+Added a regression test for the selected package identity, lockfile consistency, documented archive filename, public examples and unchanged executable/repository. Re-ran `npm ci`, `npm run check` (85 passed, one optional live test skipped), TypeDoc, npm audit (0 known vulnerabilities) and `npm pack --dry-run` (13 intended files). Clean ESM/CommonJS/declaration/CLI consumers succeeded under the selected package name. The expected archive is `obiorachibuike-depguard-0.1.0.tgz`.
+
+The registry returned 404 for the selected package at check time; this is not proof of account ownership or authorization. No npm login, account creation, package publication, GitHub Release or merge was performed. The owner must authenticate locally and verify that `npm whoami` returns `obiorachibuike` before following the first-publication steps in `docs/PUBLISHING.md`.

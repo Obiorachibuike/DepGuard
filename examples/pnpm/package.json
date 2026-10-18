@@ -1,0 +1,7 @@
+{
+  "name": "depguard-pnpm-fixture",
+  "private": true,
+  "dependencies": {
+    "is-number": "7.0.0"
+  }
+}
